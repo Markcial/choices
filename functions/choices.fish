@@ -1,14 +1,14 @@
 function choices -d "Choices function"
   set -l prompt "Select one : "
   set -l error "Invalid selection. Must be one of %(choices)!"
-  set -l explicit 0
+  set -l explicit 1
   set -l default
   set -l choices
 
   getopts $argv | while read -l 1 2
     switch "$1"
-      case x explicit
-        set explicit $2
+      case select-by-index
+        set explicit 0
       case d default
         set default $2
       case p prompt
@@ -16,12 +16,12 @@ function choices -d "Choices function"
       case e error
         set error $2
       case h help
-        printf "Usage: choices [--prompt=<s>] [--default=<s>] [--explicit] [--error=<s>] [--help] CHOICES<a> \n\n"
-        printf "    -p --prompt     Set the prompt text\n"
-        printf "    -e --error      Set the error message\n"
-        printf "    -x --explicit   Uses explicit selection, not by index\n"
-        printf "    -d --default    Default value for selection\n"
-        printf "    -h --help       Show usage help\n"
+        printf "Usage: choices [--prompt=<s>] [--default=<s>] [--select-by-index] [--error=<s>] [--help] CHOICES<a> \n\n"
+        printf "    -p --prompt         Set the prompt text\n"
+        printf "    -e --error          Set the error message\n"
+        printf "    --select-by-index   Uses explicit selection, not by index\n"
+        printf "    -d --default        Default value for selection\n"
+        printf "    -h --help           Show usage help\n"
         return
       case _
         set choices $choices $2
@@ -49,5 +49,5 @@ function choices -d "Choices function"
   else
     set rule (echo -s \|(seq 1 (count $choices)) | cut -b 2-)
   end
-  get --prompt=$prompt --error=(echo $error | sed "s:%(choices):$choices:") --rule="^($rule)\$" --default=$default
+  get --prompt=$prompt --error=(echo $error | sed "s:%(choices):$choices:") --rule="^($rule)\$" --default=$default
 end
