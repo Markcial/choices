@@ -33,7 +33,7 @@ Selection by item index.
 ```fish
 choices --prompt="Which library do you want to install? Default: All" \
         --default=6 \
-        --select-by-index -- \
+        --literal 1 \
         "Node" "Ruby" "Python" "Groovy" "Clojure" "All of the above"
 ```
 
@@ -56,7 +56,7 @@ Which library do you want to install? Default: All # Press Enter
 
 -e, --error: The message displayed to the user when the selection is not valid. String. Default: `Invalid selection. Must be one of %(choices)!`
 
---select-by-index: Switches between selection by index or explicitly by one of the literal choices sent, by default the selection is done by literal choice. Switch flag
+-l --literal: Switches between selection by index or explicitly by one of the literal choices sent, by default the selection is done by it's index. Boolean defaults to 0
 
 -d, --default: The default value if the user just presses enter without any value. String. Default: None.
 
