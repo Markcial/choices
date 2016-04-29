@@ -18,7 +18,7 @@ fisher choices
 ```fish
 choices --prompt="Which profile should I erase? " \
         --error="The only profiles I know are: %(choices)" \
-        "Mike" "Dave" "Bruce"
+        --literal 1 "Mike" "Dave" "Bruce"
 ```
 
 ```
@@ -34,7 +34,6 @@ Selection by item index.
 ```fish
 choices --prompt="Which library do you want to install? Default: All" \
         --default=6 \
-        --literal 1 \
         "Node" "Ruby" "Python" "Groovy" "Clojure" "All of the above"
 ```
 
