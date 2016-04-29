@@ -1,3 +1,4 @@
+[![Travis build status][travis-badge]][travis-link]
 [![Slack Room][slack-badge]][slack-link]
 
 # Choices
