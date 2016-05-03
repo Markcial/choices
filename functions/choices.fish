@@ -67,7 +67,7 @@ function choices -d "Choices function"
   end
 
   while test -z "$result"
-    read -c $default -p __prompt -l given
+    read -c "$default" -p __prompt -l given
 
     if echo $given | grep -qE "^($rule)\$"
         set result $given
@@ -75,6 +75,7 @@ function choices -d "Choices function"
         set invalid 1
     end
   end
+
   functions -e __error_msg
   functions -e __prompt
   echo $result
