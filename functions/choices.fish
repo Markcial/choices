@@ -36,20 +36,46 @@ function choices -d "Choices function"
     choices --h > /dev/stderr
     return 1
   end
-  set -l counter 1
-  for choice in $choices
-    set -l out
-    if test $literal -eq 0
-      set out "$out$counter) "
-      set counter (math $counter + 1)
-    end
-    set out "$out$choice"
-    echo $out
-  end
+
+  set -l invalid 0
+
   if test $literal -eq 1
     set rule (echo -s \|$choices | cut -b 2-)
   else
     set rule (echo -s \|(seq 1 (count $choices)) | cut -b 2-)
   end
-  get --prompt=$prompt --error=(echo $error | sed "s:%(choices):$choices:") --rule="^($rule)\$" --default=$default
+
+  function -S __error_msg
+    echo $error | sed "s:%(choices):$choices:"
+  end
+
+  function -S __prompt
+    set -l counter 1
+    for choice in $choices
+      set -l out
+      if test $literal -eq 0
+        set out "$out$counter) "
+        set counter (math $counter + 1)
+      end
+      set out "$out$choice"
+      echo $out
+    end
+    if test $invalid -eq 1
+      __error_msg
+    end
+    echo $prompt
+  end
+
+  while test -z "$result"
+    read -c $default -p __prompt -l given
+
+    if echo $given | grep -qE "^($rule)\$"
+        set result $given
+    else
+        set invalid 1
+    end
+  end
+  functions -e __error_msg
+  functions -e __prompt
+  echo $result
 end
