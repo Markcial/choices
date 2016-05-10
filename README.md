@@ -1,4 +1,4 @@
-[![Travis build status][travis-badge]][travis-link]
+[![Build status][travis-badge]][travis-link]
 [![Slack Room][slack-badge]][slack-link]
 
 # Choices
@@ -52,13 +52,13 @@ Which library do you want to install? Default: All # Press Enter
 
 ## Options
 
--p, --prompt: The message prompted to the user requesting the input. String. Default: `Select one : `
+-p, --prompt: The message prompted to the user requesting the input. String. *Default*: "Select one : "
 
--e, --error: The message displayed to the user when the selection is not valid. String. Default: `Invalid selection. Must be one of %(choices)!`
+-e, --error: The message displayed to the user when the selection is not valid. String. *Default*: "Invalid selection. Must be one of %(choices)!"
 
 -l --literal: Switches between selection by index or explicitly by one of the literal choices sent, by default the selection is done by it's index. Boolean defaults to 0
 
--d, --default: The default value if the user just presses enter without any value. String. Default: None.
+-d, --default: The default value if the user just presses enter without any value. String. *Default*: None.
 
 -h, --help: Show usage information.
 
