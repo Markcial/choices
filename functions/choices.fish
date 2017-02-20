@@ -45,11 +45,11 @@ function choices -d "Choices function"
     set rule (echo -s \|(seq 1 (count $choices)) | cut -b 2-)
   end
 
-  function -S __error_msg
+  function __error_msg -S
     echo $error | sed "s:%(choices):$choices:"
   end
 
-  function -S __prompt
+  function __prompt -S
     set -l counter 1
     for choice in $choices
       set -l out
