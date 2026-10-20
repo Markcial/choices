@@ -1,0 +1,17 @@
+name: test
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  fishtape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install fish
+        run: sudo apt-get update && sudo apt-get install -y fish
+      - name: Run fishtape
+        run: |
+          fish -c 'curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source; and fisher install jorgebucaran/fisher jorgebucaran/getopts.fish jorgebucaran/fishtape "$GITHUB_WORKSPACE"; or exit 1; fishtape test/choices.fish'
