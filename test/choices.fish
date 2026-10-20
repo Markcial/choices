@@ -1,22 +1,16 @@
-test "$TEST It can display help, long flag"
-  (choices --help) = "Usage: choices [--prompt=<s>] [--default=<s>] [--explicit] [--error=<s>] [--help] CHOICES<a> " \
-  "" \
-  "    -p --prompt     Set the prompt text" \
-  "    -e --error      Set the error message" \
-  "    -l --literal    Uses explicit selection, not by index" \
-  "    -d --default    Default value for selection" \
-  "    -h --help       Show usage help"
-end
+set -l help "Usage: choices [--prompt=<s>] [--default=<s>] [--explicit] [--error=<s>] [--help] CHOICES<a> 
 
-test "$TEST It can display help, short flag"
-  (choices -h) = "Usage: choices [--prompt=<s>] [--default=<s>] [--explicit] [--error=<s>] [--help] CHOICES<a> " \
-  "" \
-  "    -p --prompt     Set the prompt text" \
-  "    -e --error      Set the error message" \
-  "    -l --literal    Uses explicit selection, not by index" \
-  "    -d --default    Default value for selection" \
-  "    -h --help       Show usage help"
-end
+    -p --prompt     Set the prompt text
+    -e --error      Set the error message
+    -l --literal    Uses explicit selection, not by index
+    -d --default    Default value for selection
+    -h --help       Show usage help"
+
+@test "It can display help, long flag" (choices --help | string collect) = "$help"
+@test "It can display help, short flag" (choices -h | string collect) = "$help"
+
+# The cases below used fisherman's mock helper and fishtape 1 block syntax.
+# They are not executed.
 
 #test "$TEST It can display single choices"
 #  (mock read; set -g result 1; choices a) = "1) a" \
